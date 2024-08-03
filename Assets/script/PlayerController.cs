@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 
     // 주석
     public CharacterController characterController; // 초록색 이름 타입 - 흰색 이름 변수
-    public float speeds = 10f;                      // 초기 속도를 10으로 설정
+    public float speeds;                      // 초기 속도를 10으로 설정
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update() {
         PlayerMove();
-        PlayerCameraMove();
+        //PlayerCameraMove();
     }
 
     private void PlayerMove()
@@ -44,7 +44,14 @@ public class PlayerController : MonoBehaviour
         
         // transform 의 각도 , y축을 MouseX 값 만큼 변경해 주면 된다.
         transform.rotation = Quaternion.Euler( MouseX, MouseY, 0 );
+    }
 
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        // 태그 지정
+        if(collision.collider.CompareTag("Door"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
